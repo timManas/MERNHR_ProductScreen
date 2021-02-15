@@ -24,6 +24,9 @@ const connectDB = async () => {
   }
 }
 
+// Setup Routes BEFORE WE SEND RESPONSE .... OMGGGGGG
+app.use('/api/products', productRoutes)
+
 // Connect Backend to MongoDB
 connectDB()
 

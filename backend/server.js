@@ -2,6 +2,7 @@ import path from 'path'
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import  productRoutes   from './productRoutes.js'
 
 // Initialize Dot Env File
 dotenv.config()
@@ -19,7 +20,7 @@ const connectDB = async () => {
     })
     console.log(`MongoDB Connected: ${conn.connection.host}`)
   } catch (error) {
-    console.log(`Error: ${error.message}`)
+    console.log(`Error: ${error.message}`)  
     process.exit(1) // exit(1) - means you return with error
   }
 }

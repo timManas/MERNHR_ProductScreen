@@ -2,20 +2,34 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { listProductDetails } from '../actions/productActions'
+
 
 const ProductScreen = ({match}) => {
 
-  const [product, setProduct] = useState([])
+  // // Solution #1 - Using axios
+  // const [product, setProduct] = useState([])
+  // useEffect(() => {
+  //   const fetchProducts = async (req, res) => {
+  //     const { data } = await axios.get(`/api/products/${match.params.id}`) // typeof is Object
+  //     console.log("Single Product: " + JSON.stringify(data, null, 4))
+  //     setProduct(data)
+  //   }
+  
+  //   fetchProducts()
+  // }, [])
+
+  // Solution #2 - Using Redux
+  const dispatch = useDispatch()
+
+  const productDetails = useSelector((state) => state.productDetails)
+  const { loading, error, product } = productDetails
+  console.log('Redux single product ----- ' + JSON.stringify(product, null, 4))
 
   useEffect(() => {
-    const fetchProducts = async (req, res) => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`) // typeof is Object
-      console.log("Single Product: " + JSON.stringify(data, null, 4))
-      setProduct(data)
-    }
-  
-    fetchProducts()
-  }, [])
+    dispatch(listProductDetails(match.params.id))
+  }, [dispatch])
 
   return (
     <>
